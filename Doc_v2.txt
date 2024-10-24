@@ -1,0 +1,72 @@
+Step 1: 
+1. Requirements
+
+Flask (Python Web Framework)
+SQLite (Database)
+2. Required Python Libraries:
+Flask (To install: pip install flask)
+SQLite3 (Comes built-in with Python)
+3. Install Python Dependencies
+Install Flask using pip:
+
+Step2 : 
+Setup the database
+Run the setup_database.py script to create the necessary database and table.
+
+
+Step3:
+ Run the Flask Application
+Start the Flask server by running the following command:
+
+python app.py
+By default, the Flask server will run on http://127.0.0.1:5000/. 
+Open this URL in your browser to interact with the application.
+
+Step4:
+Device Registration:
+The device registration form allows users to enter a device name, IP address, and password. 
+Upon submission, the data is stored in the SQLite database.
+
+Device Registration Form (device_registration.html)
+
+<form action="/add_device" method="POST">
+    <label for="device_name">Device Name:</label><br>
+    <input type="text" id="device_name" name="device_name" required><br><br>
+
+    <label for="ip_address">IP Address:</label><br>
+    <input type="text" id="ip_address" name="ip_address" pattern="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" minlength="6" required><br><br>
+
+    <button type="submit">Register Device</button>
+</form>
+
+Device Availability Check
+Users can select a registered device and input the password used during registration to check whether the device is "reachable" or "not reachable." 
+This form simulates the device reachability check using random number logic.
+
+Device Availability Check Form (check_availability.html)
+
+<form action="/check_availability" method="POST">
+    <label for="device_id">Select Device:</label><br>
+    <select name="device_id" id="device_id" required>
+    </select><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <button type="submit">Check Availability</button>
+</form>
+
+Request parameters: 
+device_id, password
+Response: Returns one of the following messages based on the validation:
+Reachable: If the device is reachable (based on random logic).
+Not Reachable: If the device is not reachable.
+Incorrect Password: If the entered password does not match the stored password.
+Simulated Reachability Logic
+To simulate the reachability of a device, the system generates a random number when checking the device's availability. 
+If the number is even, the device is considered reachable. If the number is odd, the device is considered not reachable.
+
+This logic is implemented in the /check_availability route
