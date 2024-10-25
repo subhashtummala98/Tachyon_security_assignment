@@ -2,6 +2,8 @@ from flask import Flask, url_for
 from flask import request as rq, render_template as rt, redirect as rd
 import sqlite3 as sq
 import random
+import webbrowser
+import threading
 
 app = Flask(__name__)
 def get_db_connection():
@@ -12,6 +14,9 @@ def get_db_connection():
 @app.route('/')
 def index():
     return rd(url_for('register_device'))
+
+def open_browser():
+    webbrowser.open_new("http://127.0.0.1:5000/")
 
 @app.route('/signup_device', methods=['GET', 'POST'])
 def register_device():
@@ -67,4 +72,5 @@ def check_availability():
     return rt('signin.html', devices=devices)
 
 if __name__ == '__main__':
+    threading.Timer(1, open_browser).start()
     app.run(debug=True)
